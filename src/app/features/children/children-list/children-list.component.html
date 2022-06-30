@@ -1,0 +1,59 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+  <div fxFlex="95%">
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <h3>My Children</h3>
+
+        </mat-card-title>
+        <div fxFlex></div>
+        <button *ngIf="role === 'PARENT'" (click)="addNewChild()" mat-button color="primary">
+          <mat-icon>add</mat-icon>
+          Add Child</button>
+      </mat-card-header>
+      <mat-card-content>
+
+
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="gender">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+            <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="babysitter">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Babysitter </th>
+            <td mat-cell *matCellDef="let element"> {{element.babysitter === null ? '-' : element.babysitter.name}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button *ngIf="role === 'BABYSITTER'" color="primary"
+                (click)="addActivity(element.id)">Edit</button>
+              <button mat-button *ngIf="role === 'PARENT' && element.babysitter === null" color="primary"
+                (click)="assignBabysitter(element.id)">Assign Babysitter</button>
+              <button mat-button *ngIf="role === 'PARENT' && element.babysitter !== null" color="warn"
+                (click)="unassignBabysitter(element.id)">Unassign Babysitter</button>
+              <button mat-button (click)="viewActivity(element.id)">View</button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>
