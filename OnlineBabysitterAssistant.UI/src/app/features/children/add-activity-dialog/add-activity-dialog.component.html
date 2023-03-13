@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Add child activity</h1>
+<div mat-dialog-content [formGroup]="activityForm">
+    <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Enter date and time</mat-label>
+        <input matInput formControlName="time" type="datetime-local" [readonly]="data.view">
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Leave a description</mat-label>
+        <textarea matInput formControlName="description" [readonly]="data.view" placeholder="Ex. We do gymnastics..."></textarea>
+      </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onClose()">Close</button>
+    <button mat-raised-button *ngIf="!data.view" color="primary" (click)="onAdd()" cdkFocusInitial>Add</button>
+</div>

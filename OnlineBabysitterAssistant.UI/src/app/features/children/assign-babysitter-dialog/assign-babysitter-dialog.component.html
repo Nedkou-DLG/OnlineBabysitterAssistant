@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Assign Babysitter</h1>
+<div mat-dialog-content [formGroup]="assignBabysitterForm">
+    <mat-form-field class="full-width">
+        <mat-label>Babysitter</mat-label>
+        <mat-select formControlName="babysitter" required>
+          
+          <mat-option *ngFor="let element of babysittersDropdown" [value]="element.id">
+            {{element.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="assignBabysitterForm.controls['babysitter'].hasError('required')">Please choose a babysitter</mat-error>
+      </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onClose()">Close</button>
+    <button mat-raised-button color="primary" (click)="onAssign()" cdkFocusInitial>Assign</button>
+</div>

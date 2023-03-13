@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Add new child</h1>
+<div mat-dialog-content [formGroup]="form">
+    <mat-form-field class="full-width">
+        <input id="nameInput" matInput placeholder="Name" formControlName="name">
+
+        <mat-error id="requiredNameError" *ngIf="form.controls['name'].hasError('required')">
+            Name is
+            <strong>required</strong>
+        </mat-error>
+        
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input id="genderInput" matInput placeholder="Gender" formControlName="gender">
+
+        <mat-error id="requiredGenderError" *ngIf="form.controls['gender'].hasError('required')">
+            Gender is
+            <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onClose()">Close</button>
+    <button mat-raised-button  color="primary" (click)="onCreate()" cdkFocusInitial>Create</button>
+</div>

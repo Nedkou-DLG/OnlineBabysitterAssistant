@@ -1,0 +1,55 @@
+<form [formGroup]="form">
+    <p>Use the form below to update your profile.</p>
+
+    <div fxLayout="row">
+
+        <div fxFlex="40%" fxFlex.md="60%" fxFlex.sm="50%" fxFlex.xs="100%">
+
+            <mat-form-field class="full-width">
+                <input id="nameInput" matInput placeholder="Name" formControlName="name">
+
+                <mat-error id="requiredNameError" *ngIf="form.controls['name'].hasError('required')">
+                    Name is
+                    <strong>required</strong>
+                </mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input id="addressInput" matInput placeholder="Address" formControlName="address">
+
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input id="emailInput" matInput placeholder="Email" formControlName="email" autocomplete="email"
+                    type="email">
+
+                <mat-error id="invalidEmailError" *ngIf="form.controls['email'].hasError('email')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error id="requiredEmailError" *ngIf="form.controls['email'].hasError('required')">
+                    Email is
+                    <strong>required</strong>
+                </mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input id="phoneInput" matInput placeholder="Tel. Number" formControlName="phoneNumber"
+                    type="tel">
+
+                <mat-error id="requiredPhonenumber" *ngIf="form.controls['phoneNumber'].hasError('required')">
+                    Tel. Number is
+                    <strong>required</strong>
+                </mat-error>
+
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" [disabled]="form.invalid || disableSubmit"
+                (click)="updateProfile()">Save</button>
+
+        </div>
+
+    </div>
+
+</form>
