@@ -34,32 +34,16 @@ namespace OnlineBabysitterAssistant.Web.Controllers
         {
             var response = _userService.Authenticate(model);
 
-            if (response == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
-
             return Ok(response);
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register(CreateUserModel model)
         {
-            try
-            {
-                var result = await _userService.RegisterUser(model);
-                return Ok(result);
-            }
-            catch(Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-            return Ok($"Successfully created {model.Type}!");
+            var result = await _userService.RegisterUser(model);
+                
+            return Ok(result);
         }
-        //[Authorize(UserType.PARENT)]
-        //[HttpGet]
-        //public IActionResult GetAll()
-        //{
-        //    var users = _userService.GetAll();
-        //    return Ok(users);
-        //}
+        
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {
@@ -71,6 +55,7 @@ namespace OnlineBabysitterAssistant.Web.Controllers
             var user = _userService.GetById(id);
             return Ok(user);
         }
+        
         [HttpGet("info/{id}")]
         [ProducesResponseType(typeof(UserModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -10,6 +10,6 @@ namespace OnlineBabysitterAssistant.Domain.Interfaces.Repositories
 {
     public interface IChildRepository:IGenericRepository<ChildRecord>
     {
-        Task<IEnumerable<ChildModel>> GetAllByParent(int parentId, IConfigurationProvider configuration);
+        IQueryable<ChildModel> GetAllByParent(int parentId, IConfigurationProvider configuration);
     }
 }

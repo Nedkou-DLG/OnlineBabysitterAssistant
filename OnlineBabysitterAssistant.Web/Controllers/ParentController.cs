@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineBabysitterAssistant.Domain.Entities;
 using OnlineBabysitterAssistant.Domain.Models.Child;
 using OnlineBabysitterAssistant.Domain.Models.User;
@@ -51,7 +52,7 @@ namespace OnlineBabysitterAssistant.Web.Controllers
         {
             try
             {
-				var response = await _parentService.GetChildren(CurrentUser.Id);
+				var response = await _parentService.GetChildren(CurrentUser.Id).ToListAsync();
 
 				return Ok(response);
             }

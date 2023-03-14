@@ -11,7 +11,8 @@ namespace OnlineBabysitterAssistant.Infrastructure.Repositories
     {
         public UserRepository(BabysitterContext context):base(context)
         {
-
         }
+        
+        
     }
 }

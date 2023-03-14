@@ -13,6 +13,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using OnlineBabysitterAssistant.Domain.Exceptions.Custom;
 
 namespace OnlineBabysitterAssistant.Web.Appplication.Services
 {
@@ -36,7 +37,8 @@ namespace OnlineBabysitterAssistant.Web.Appplication.Services
             var user = _unitOfWork.UserRepository.AsEnumerable().FirstOrDefault(x => x.UserName == model.Username && x.Password == model.Password);
 
             // return null if user not found
-            if (user == null) return null;
+            if (user == null) 
+                throw new UserNotFoundException(CustomExceptionMessagesConstants.UserLoginNotFound);
 
             // authentication successful so generate jwt token
             var jwtToken = _jwtUtils.GenerateJwtToken(user);
@@ -76,6 +78,10 @@ namespace OnlineBabysitterAssistant.Web.Appplication.Services
         public async Task<UserModel> GetUserInfo(int userId)
         {
             var user = await _unitOfWork.UserRepository.GetAsync(userId);
+            
+            if (user == null)
+                throw new UserNotFoundException(CustomExceptionMessagesConstants.UserNotFound);
+            
             return _mapper.Map<UserModel>(user);
         }
 

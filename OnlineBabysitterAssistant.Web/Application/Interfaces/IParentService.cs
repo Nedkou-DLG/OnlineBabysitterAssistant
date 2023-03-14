@@ -7,9 +7,9 @@ namespace OnlineBabysitterAssistant.Web.Application.Interfaces
 	public interface IParentService
 	{
 		Task<ChildModel> AddChild(int userId, CreateChildModel model);
-		Task<IEnumerable<ChildModel>> GetChildren(int userId);
+		IQueryable<ChildModel> GetChildren(int userId);
 		Task<UserModel> ConnectBabysitter(int userId, int childId);
-		Task<ChildModel?> GetChild(int userId, int childId);
+		Task<ChildModel> GetChild(int userId, int childId);
 		Task<IEnumerable<UserModel>> GetBabysitters(int userId);
 		Task<IEnumerable<UserModel>> GetAll();
 		Task<IEnumerable<BabysitterModel>> GetAllBabysitters(int userId);

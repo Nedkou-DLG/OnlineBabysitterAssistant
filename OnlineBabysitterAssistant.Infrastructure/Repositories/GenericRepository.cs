@@ -61,20 +61,14 @@ namespace OnlineBabysitterAssistant.Infrastructure.Repositories
             context.Entry(entity).State = EntityState.Detached;
         }
 
-        public virtual TEntity? Get(int id)
-        {
-            return dbSet.Find(id);
-        }
+        public virtual TEntity Get(int id) => dbSet.Find(id) ?? throw new InvalidOperationException();
 
         public virtual IEnumerable<TEntity> GetAll(IEnumerable<int> ids)
         {
             return dbSet.Where(e => ids.Contains(e.Id)).AsEnumerable();
         }
 
-        public virtual async Task<TEntity?> GetAsync(int id)
-        {
-            return await dbSet.FirstOrDefaultAsync(x => x.Id == id);
-        }
+        public virtual async Task<TEntity> GetAsync(int id) => await dbSet.FirstOrDefaultAsync(x => x.Id == id);
 
         public virtual void Update(TEntity entity)
         {

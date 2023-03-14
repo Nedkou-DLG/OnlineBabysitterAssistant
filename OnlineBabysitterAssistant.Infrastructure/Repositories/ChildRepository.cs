@@ -18,14 +18,14 @@ namespace OnlineBabysitterAssistant.Infrastructure.Repositories
 
         }
 
-        public override async Task<ChildRecord?> GetAsync(int id)
+        public override async Task<ChildRecord> GetAsync(int id)
         {
             return await dbSet.Include(x => x.Parent)
                         .Include(x => x.Babysitter)
                         .Include(x => x.ActivityRecords)
                         .FirstAsync(x => x.Id == id);
         }
-        public async Task<IEnumerable<ChildModel>> GetAllByParent(int parentId, IConfigurationProvider configuration)
+        public IQueryable<ChildModel> GetAllByParent(int parentId, IConfigurationProvider configuration)
         {
             return  dbSet.Include(x => x.Parent)
                         .Include(x => x.Babysitter)

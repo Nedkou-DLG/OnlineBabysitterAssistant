@@ -33,18 +33,18 @@ namespace OnlineBabysitterAssistant.Web.Application.Services
             return _mapper.Map<ChildModel>(record);
         }
 
-        public async Task<IEnumerable<ChildModel>> GetChildren(int userId)
+        public IQueryable<ChildModel> GetChildren(int userId)
         {
-            var children = await _unitOfWork.ChildRepository.GetAllByParent(userId, _mapper.ConfigurationProvider);
+            var children = _unitOfWork.ChildRepository.GetAllByParent(userId, _mapper.ConfigurationProvider);
 
             return children;
         }
 
-        public async Task<ChildModel?> GetChild(int userId, int childId)
+        public async Task<ChildModel> GetChild(int userId, int childId)
         {
-            var children = await GetChildren(userId);
+            var children = GetChildren(userId);
 
-            return children.FirstOrDefault(x => x.Id == childId);
+            return await children.FirstOrDefaultAsync();
         }
 
         public async Task<UserModel> ConnectBabysitter(int userId, int childId)
@@ -110,7 +110,7 @@ namespace OnlineBabysitterAssistant.Web.Application.Services
 
             if(babysitter != null && child != null)
             {
-                babysitter?.Children.Add(child);
+                babysitter.Children.Add(child);
                 child.Babysitter = babysitter;
                 await _unitOfWork.SaveAsync();
             }
@@ -123,7 +123,7 @@ namespace OnlineBabysitterAssistant.Web.Application.Services
         {
             var child = await _unitOfWork.ChildRepository.GetAsync(childId);
 
-            child.Babysitter = null;
+            child.BabysitterId = null;
 
             await _unitOfWork.SaveAsync();
 

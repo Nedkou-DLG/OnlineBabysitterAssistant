@@ -61,8 +61,8 @@ namespace OnlineBabysitterAssistant.Web.Application.Services
         public async Task<IEnumerable<UserModel>> GetAll(int userId)
         {
 			var parent = await _unitOfWork.ParentRepository.GetAsync(userId);
-			var connectedBabysitters = parent?.Babysitters.Select(x => x.Id);
-			return _unitOfWork.BabysitterRepository.AsQueryable().Where(x => !connectedBabysitters.Contains(x.Id))
+			var connectedBabysitterIds = parent.Babysitters.Select(x => x.Id);
+			return _unitOfWork.BabysitterRepository.AsQueryable().Where(x => connectedBabysitterIds.Contains(x.Id))
 												   .ProjectTo<UserModel>(_mapper.ConfigurationProvider)
 												   .AsEnumerable();
         }

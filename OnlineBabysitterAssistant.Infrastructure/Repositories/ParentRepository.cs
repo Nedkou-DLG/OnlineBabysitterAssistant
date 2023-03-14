@@ -35,14 +35,16 @@ namespace OnlineBabysitterAssistant.Infrastructure.Repositories
             var parent = await AsQueryable().Include(x => x.Babysitters)
                                             .FirstOrDefaultAsync(x => x.Id == parentId);
 
-            var babysitters = parent?.Babysitters.AsQueryable().ProjectTo<UserModel>(configuration);
+            
+            var babysitters = parent.Babysitters.AsQueryable().ProjectTo<UserModel>(configuration);
 
             return babysitters.AsEnumerable();
         }
 
-        public override async Task<ParentRecord?> GetAsync(int id)
+        public override async Task<ParentRecord> GetAsync(int id)
         {
-            return await dbSet.Include(x => x.Babysitters).Include(x => x.Children).FirstAsync(x => x.Id == id);
+            return await dbSet.Include(x => x.Babysitters)
+                                .Include(x => x.Children).FirstAsync(x => x.Id == id);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using OnlineBabysitterAssistant.Infrastructure;
+using OnlineBabysitterAssistant.Web.Application.Configurations;
 using OnlineBabysitterAssistant.Web.Application.Configurations.Extensions;
 using OnlineBabysitterAssistant.Web.Appplication.Configurations.Helpers;
 
@@ -44,6 +45,7 @@ public class Program
         .AllowAnyHeader());
 
         app.UseHttpsRedirection();
+        app.UseMiddleware<GlobalExceptionMiddleware>();
         app.UseMiddleware<JwtMiddleware>();
         app.UseAuthorization();
 

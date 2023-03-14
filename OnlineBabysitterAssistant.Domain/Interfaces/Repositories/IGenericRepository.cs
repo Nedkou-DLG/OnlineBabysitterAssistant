@@ -8,9 +8,9 @@ namespace OnlineBabysitterAssistant.Domain.Interfaces.Repositories
 {
 	public interface IGenericRepository<TEntity> where TEntity : class, IEntity
 	{
-		TEntity? Get(int id);
+		TEntity Get(int id);
 
-		Task<TEntity?> GetAsync(int id);
+		Task<TEntity> GetAsync(int id);
 
 		IEnumerable<TEntity> GetAll(IEnumerable<int> ids);
 
